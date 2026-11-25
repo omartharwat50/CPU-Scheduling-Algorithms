@@ -76,6 +76,12 @@ public class Process{
     public void setBatchJob(boolean isBatchJob){
         this.isBatchJob=isBatchJob;
     }
+    public int getTier2WaitStartTime(){
+        return tier2WaitStartTime;
+    }
+    public void setTier2WaitStartTime(int tier2WaitStartTime){
+        this.tier2WaitStartTime=tier2WaitStartTime;
+    }
 
     
 
