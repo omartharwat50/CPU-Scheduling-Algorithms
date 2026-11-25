@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class AdaptiveContainerSchedular extends Schedular {
+public class AdaptiveContainerSchedular extends Scheduler {
     private int QuantamTime = 2;
     private Queue<Process> processQueue;
     private PriorityQueue<Process> priorityQueue;
@@ -17,7 +17,7 @@ public class AdaptiveContainerSchedular extends Schedular {
     }
 
     public AdaptiveContainerSchedular(List<Process> processList, int quantamTime, int CStime) {
-        super(processList, CStime);
+        super( CStime,processList);
         this.QuantamTime = quantamTime;
         this.processQueue = new LinkedList<>();
         this.priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Process::getEffectivePriority));
@@ -30,8 +30,8 @@ public class AdaptiveContainerSchedular extends Schedular {
         Process currentProcess = null;
         int csRemaining = 0;
 
-        while (completed < processList.size()) {
-            for (Process process : processList) {
+        while (completed < processes.size()) {
+            for (Process process : processes) {
                 if (process.getArrivalTime() == currentTime) {
                     process.setTier(1);
                     processQueue.add(process);
@@ -62,11 +62,11 @@ public class AdaptiveContainerSchedular extends Schedular {
                     currentProcess.setFinishTime(currentTime + 1);
                     completed++;
                     currentProcess = null;
-                    csRemaining = CStime;
+                    csRemaining = contextSwitchTime;
                 } else if (remainingTime > 0 && quantamUsed == QuantamTime && tier == 1) {
                     demoteToTier2(currentProcess);
                     currentProcess = null;
-                    csRemaining = CStime;
+                    csRemaining = contextSwitchTime;
                 }
             }
             // tier 2
