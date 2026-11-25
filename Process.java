@@ -11,10 +11,12 @@ public class Process{
     private int finishTime=0;
     private boolean isBatchJob=false;
     private int tier2WaitStartTime=0;
+    private int tier=1;
 
     
     public Process(String name){
         this.name=name;
+        this.remainingTime=this.burstTime;
     }
     public String getName(){
         return name;
@@ -64,6 +66,9 @@ public class Process{
     public int getRemainingTime(){
         return remainingTime;
     }
+    public void setRemainingTime(int remainingTime){
+        this.remainingTime=remainingTime;
+    }
     public int getFinishTime(){
         return finishTime;
     }
@@ -81,6 +86,12 @@ public class Process{
     }
     public void setTier2WaitStartTime(int tier2WaitStartTime){
         this.tier2WaitStartTime=tier2WaitStartTime;
+    }
+    public int getTier(){
+        return tier;
+    }
+    public void setTier(int tier){
+        this.tier=tier;
     }
 
     
